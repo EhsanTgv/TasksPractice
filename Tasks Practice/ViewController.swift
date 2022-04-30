@@ -17,11 +17,22 @@ class ViewController: UIViewController {
             UserDefaults().set(true,forKey: "setup")
             UserDefaults().set(0,forKey: "count")
         }
+        
+        updateTasks()
+    }
+    
+    func updateTasks() {
+        
     }
     
     @IBAction func didTapAdd(){
         let vc = storyboard?.instantiateViewController(identifier: "entry") as! EntryViewController
         vc.title = "New Task"
+        vc.update = {
+            DispatchQueue.main.async{
+                self.updateTasks()
+            }
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
 }
